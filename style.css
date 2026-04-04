@@ -1,0 +1,182 @@
+*{
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+    box-sizing: border-box;
+}
+body{
+    width: 100%;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #18a3cc, #a91fdb);
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+}
+.todo-app{
+    width: 100%;
+    max-width: 540px;
+    background: #fff;
+    margin: 100px auto 20px;
+    padding: 40px 30px 70px;
+    border-radius: 10px;
+    height: fit-content;
+}
+.todo-app h2{
+    color: #18a3cc;
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+.todo-app h2 img{
+    width: 30px;
+    margin-left: 10px;
+}
+.row{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #edeef0;
+    border-radius: 30px;
+    padding-left: 20px;
+    margin-bottom: 25px;
+}
+input{
+    flex: 2;
+    border: none;
+    outline: none;
+    background: transparent;
+    font-weight: 14px;
+    padding: 10px;
+}
+button{
+    border: none;
+    outline: none;
+    padding: 12px 25px;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    border-radius: 40px;
+    transition: background 0.3s, transform 0.1s;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+#add-button {
+    background: #ED2438;
+    padding: 16px 40px;
+}
+#sort-button{
+    background: #ED2438;
+    padding: 8px 16px;
+}
+ul li{
+    list-style: none;
+    font-size: 17px;
+    padding: 12px 8px 12px 50px;
+    user-select: none;
+    cursor: pointer;
+    position: relative;
+    transition: border-left-width 0.2s;
+}
+ul li::before{
+    content: '';
+    position: absolute;
+    height: 28px;
+    width: 28px;
+    border-radius: 50%;
+    background-image: url(images/red-circle.png);
+    background-size: cover;
+    background-position: center;
+    top: 8px;
+    left: 8px;
+}
+ul li.checked{
+     color: #18a3cc;
+     text-decoration: line-through;
+}
+ul li.checked::before{
+    background-image: url(images/blue-check-mark.jpg);
+}
+ul li span{
+    position: absolute;
+    right: 0;
+    top: 5px;
+    width: 40px;
+    height: 40px;
+    font-size: 22px;
+    color: #555;
+    line-height: 40px;
+    text-align: center;
+    border-radius: 50%;
+}
+ul li span:hover{
+    background: #edeef0;
+}
+ul li hover{
+    border-left-width: 15px;
+}
+#priority-select{
+    flex: 1;
+    border: none;
+    outline: none;
+    background: #edeef0;
+    margin: 5px;
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 14px;
+    cursor: pointer;
+}
+ul li.priority-high{
+    border-left: 8px solid #ff4d4d;
+}
+ul li.priority-medium{
+    border-left: 8px solid #ffcc00;
+}
+ul li.priority-low{
+    border-left: 8px solid #2ecc71;
+}
+.filters{
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    font-size: 14px;
+    color: #555;
+}
+.filters input{
+    cursor: pointer;
+    margin-right: 5px;
+    flex: none; 
+}
+.controls{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding: 0;
+}
+#status-bar{
+    margin-bottom: 20px;
+    font-size: 14px;
+    color: #555;
+    padding: 0 10px;
+}
+#progress-text{
+    font-weight: 600;
+    color: #18a3cc;
+    display: block;
+    margin-bottom: 5px;
+}
+.progress-container{
+    width: 100%;
+    height: 8px;
+    background: #edeef0;
+    border-radius: 10px;
+    overflow: hidden;
+}
+#progress-fill{
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, #18a3cc, #a91fdb);
+    transition: width 0.4s ease;
+}

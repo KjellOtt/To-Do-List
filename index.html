@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Smart To-Do List</title>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <main class="todo-app">
+            <h2>To-Do List <img src="images/to-do-list-icon.jpg"></h2>
+            <div class="row">
+                <input type="text" id="input-box" placeholder="Add Task">
+                <select id="priority-select">
+                    <option value="low">Low</option>
+                    <option value="medium">Medium</option>
+                    <option value="high">High</option>
+                </select>
+                <button id="add-button">Add</button>
+            </div>
+            <div id="status-bar">
+                Fortschritt: <span id="progress-text">0 von 0 Aufgaben erledigt</span>
+                <div class="progress-container">
+                    <div id="progress-fill"></div>
+                </div>
+            </div>
+            <div class="controls">
+                <button id="sort-button">Sort</button>
+                <div class="filters">
+                    <label><input type="radio" name="filter" value="all" checked>All</label>
+                    <label><input type="radio" name="filter" value="open">Open</label>
+                    <label><input type="radio" name="filter" value="checked">Checked</label>
+                </div>
+            </div>
+            <ul id="list-container"></ul>
+        </main>
+        <script src="script.js"></script>
+    </body>
+</html>
