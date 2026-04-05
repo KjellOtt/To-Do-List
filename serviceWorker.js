@@ -5,8 +5,8 @@ const ASSETS = [
   "./style.css",
   "./script.js",
   "./toApp.json",
-  "./images/to-do-list-icon.jpg",
-  "./images/icon-192.png"
+  "./images/to-do-list-icon.png",
+  "./images/loading-screen-icon.png"
 ];
 
 self.addEventListener("install", (event) => {
