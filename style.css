@@ -13,13 +13,14 @@ body{
     justify-content: center;
 }
 .todo-app{
-    width: 100%;
-    max-width: 540px;
+    width: 95%;
+    max-width: 450px;
     background: #fff;
-    margin: 100px auto 20px;
-    padding: 40px 30px 70px;
-    border-radius: 10px;
+    margin: 20px auto;
+    padding: 25px;
+    border-radius: 15px;
     height: fit-content;
+    box-sizing: border-box;
 }
 .todo-app h2{
     color: #18a3cc;
@@ -39,6 +40,16 @@ body{
     border-radius: 30px;
     padding-left: 20px;
     margin-bottom: 25px;
+    flex-wrap: nowrap;
+    gap: 5px;
+    padding-right: 5px;
+}
+.row input{
+    flex: 1;
+    border: none;
+    outline: none;
+    background: transparent;
+    padding: 10px;
 }
 input{
     flex: 2;
@@ -117,7 +128,7 @@ ul li hover{
     border-left-width: 15px;
 }
 #priority-select{
-    flex: 1;
+    flex: 0;
     border: none;
     outline: none;
     background: #edeef0;
@@ -126,6 +137,7 @@ ul li hover{
     border-radius: 20px;
     font-size: 14px;
     cursor: pointer;
+    min-width: 80px;
 }
 ul li.priority-high{
     border-left: 8px solid #ff4d4d;

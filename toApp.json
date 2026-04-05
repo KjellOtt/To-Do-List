@@ -8,12 +8,12 @@
   "theme_color": "#18a3cc",
   "icons": [
     {
-      "src": "image/to-do-list-icon-app.jpg",
+      "src": "images/to-do-list-icon-app.png",
       "sizes": "192x192",
-      "type": "image/jgp"
+      "type": "image/png"
     },
     {
-      "src": "image/loading-screen-icon.png",
+      "src": "images/loading-screen-icon.png",
       "sizes": "512x512",
       "type": "image/png"
     }

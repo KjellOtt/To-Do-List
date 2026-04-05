@@ -121,7 +121,7 @@ function updateStatus() {
 
 if ("serviceWorker" in navigator) {
     window.addEventListener("load", () => {
-        navigator.serviceWorker.register("sw.js")
+        navigator.serviceWorker.register("serviceWorker.js")
             .then(reg => console.log("Service Worker aktiv (toApp)!"))
             .catch(err => console.log("SW Fehler:", err));
     });
