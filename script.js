@@ -118,3 +118,11 @@ function updateStatus() {
     const percentage = totalTasks === 0 ? 0 : (completedTasks / totalTasks) * 100;
     progressFill.style.width = percentage + "%";
 }
+
+if ("serviceWorker" in navigator) {
+    window.addEventListener("load", () => {
+        navigator.serviceWorker.register("sw.js")
+            .then(reg => console.log("Service Worker aktiv (toApp)!"))
+            .catch(err => console.log("SW Fehler:", err));
+    });
+}
