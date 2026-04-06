@@ -7,7 +7,7 @@
 
 body {
     width: 100%;
-    min-height: 100px;
+    min-height: 100dvh;
     background: linear-gradient(135deg, #18a3cc, #a91fdb);
     padding: 10px;
     display: flex;
