@@ -22,7 +22,6 @@ body {
     margin: 20px auto;
     padding: 25px;
     border-radius: 15px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
 }
 
 .todo-app h2 {
@@ -40,13 +39,13 @@ body {
 
 .row {
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
     background: #edeef0;
     border-radius: 30px;
     margin-bottom: 20px;
     padding: 5px 5px 5px 20px;
     gap: 5px;
-    flex-wrap: nowrap;
 }
 
 .row input {
@@ -56,7 +55,7 @@ body {
     background: transparent;
     padding: 10px 5px;
     font-size: 14px;
-    min-width: 0;
+    min-width: 20;
 }
 
 #priority-select {
@@ -210,46 +209,3 @@ ul li span:hover {
 ul li.priority-high { border-left: 6px solid #ff4d4d; }
 ul li.priority-medium { border-left: 6px solid #ffcc00; }
 ul li.priority-low { border-left: 6px solid #2ecc71; }
-
-@media (max-width: 480px) {
-    .todo-app {
-        padding: 15px;
-        margin: 10px;
-    }
-
-    .row {
-        flex-wrap: wrap;
-        padding-left: 15px;
-        background: transparent;
-    }
-
-    .row input, #priority-select {
-        background: #edeef0;
-        border-radius: 20px;
-        margin-bottom: 5px;
-        height: 45px;
-    }
-
-    .row input {
-        flex: 1 1 100%;
-    }
-
-    #priority-select {
-        flex: 1;
-    }
-
-    #add-button {
-        flex: 1;
-        height: 40px;
-    }
-
-    .controls {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-
-    .filters {
-        width: 100%;
-        justify-content: space-between;
-    }
-}
