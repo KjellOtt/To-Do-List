@@ -1,29 +1,69 @@
 const inputBox = document.getElementById("input-box");
 const listContainer = document.getElementById("list-container");
 const prioritySelect = document.getElementById("priority-select");
-const priorityWeights = {"high": 3, "medium": 2, "low": 1};
 const sortButton = document.getElementById("sort-button");
 
-let sortAscending = false;
 let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
 let currentFilter = "all";
+let sortAscending = false;
 
-function addTask(){
-    if(inputBox.value === ''){
-        alert("There has to be SOMETHING to do...");
-        return;
-    }
-    else{
-        const newTask = {
+const priorityWeights = { "high": 3, "medium": 2, "low": 1 };
+
+function addTask() {
+    if (inputBox.value === '') {
+        alert("Du musst etwas eingeben!");
+    } else {
+        const task = {
             id: Date.now(),
             text: inputBox.value,
             priority: prioritySelect.value,
             checked: false
         };
-        tasks.push(newTask);
+        tasks.push(task);
         inputBox.value = "";
+        saveData();
         renderTasks();
     }
+}
+
+document.getElementById("add-button").addEventListener("click", addTask);
+
+listContainer.addEventListener("click", function(e) {
+    const li = e.target.tagName === "LI" ? e.target : e.target.parentElement;
+    const id = li.dataset.id;
+    const task = tasks.find(t => t.id == id);
+
+    if (e.target.tagName === "LI") {
+        task.checked = !task.checked;
+    } else if (e.target.tagName === "SPAN") {
+        tasks = tasks.filter(t => t.id != id);
+    }
+    saveData();
+    renderTasks();
+}, false);
+
+function renderTasks() {
+    listContainer.innerHTML = "";
+    
+    let filtered = tasks.filter(t => {
+        if (currentFilter === "open") return !t.checked;
+        if (currentFilter === "checked") return t.checked;
+        return true;
+    });
+
+    filtered.forEach(task => {
+        let li = document.createElement("li");
+        li.innerHTML = task.text;
+        li.dataset.id = task.id;
+        li.classList.add(`priority-${task.priority}`);
+        if (task.checked) li.classList.add("checked");
+
+        let span = document.createElement("span");
+        span.innerHTML = "\u00d7";
+        li.appendChild(span);
+        listContainer.appendChild(li);
+    });
+    updateStatus();
 }
 
 document.querySelectorAll('input[name="filter"]').forEach(radio => {
@@ -33,72 +73,11 @@ document.querySelectorAll('input[name="filter"]').forEach(radio => {
     });
 });
 
-document.getElementById("add-button").addEventListener("click", addTask);
-
-listContainer.addEventListener("click", function(e) {
-    let liElement = e.target.tagName === "LI" ? e.target : e.target.parentElement;
-    const clickedId = liElement.dataset.id;
-    const task = tasks.find(t => t.id == clickedId);
-    if (e.target.tagName === "LI" && e.offsetX < 20) {
-        changePriority(task);
-        return;
-    }
-    if (e.target.tagName === "LI") {
-        task.checked = !task.checked;
-        renderTasks();
-    }
-    else if (e.target.tagName === "SPAN") {
-        tasks = tasks.filter(t => t.id != clickedId);
-        renderTasks();
-    }
-}, false);
-
-function changePriority(task) {
-    const priorities = ["low", "medium", "high"];
-    const currentIdx = priorities.indexOf(task.priority);
-    const nextIdx = (currentIdx + 1) % priorities.length;
-    task.priority = priorities[nextIdx];
-    renderTasks();
-}
-
-function renderTasks() {
-    listContainer.innerHTML = "";
-    let filteredTasks = tasks.filter(task => {
-        if (currentFilter === "open") return !task.checked;
-        if (currentFilter === "checked") return task.checked;
-        return true;
-    });
-    filteredTasks.forEach((task) => {
-        let li = document.createElement("li");
-        li.innerHTML = task.text;
-        li.classList.add(`priority-${task.priority}`);
-        if (task.checked) {
-            li.classList.add("checked");
-        } 
-        li.dataset.id = task.id;
-        let span = document.createElement("span");
-        span.innerHTML = "\u00d7";
-        li.appendChild(span);
-        listContainer.appendChild(li);
-    });
-    saveToStorage();
-    updateStatus();
-}
-
-function saveToStorage(){
-    localStorage.setItem("tasks", JSON.stringify(tasks));
-}
-renderTasks();
-
 sortButton.addEventListener("click", () => {
     tasks.sort((a, b) => {
-        const weightA = priorityWeights[a.priority];
-        const weightB = priorityWeights[b.priority];
-        if (sortAscending) {
-            return weightA - weightB;
-        } else {
-            return weightB - weightA;
-        }
+        return sortAscending ? 
+            priorityWeights[b.priority] - priorityWeights[a.priority] : 
+            priorityWeights[a.priority] - priorityWeights[b.priority];
     });
     sortAscending = !sortAscending;
     sortButton.innerText = sortAscending ? "Sort: Low to High" : "Sort: High to Low";
@@ -106,23 +85,15 @@ sortButton.addEventListener("click", () => {
 });
 
 function updateStatus() {
-    const totalTasks = tasks.length;
-    const completedTasks = tasks.filter(t => t.checked).length;
-    const progressText = document.getElementById("progress-text");
-    if (totalTasks === 0) {
-        progressText.innerText = "Keine Aufgaben vorhanden";
-    } else {
-        progressText.innerText = `${completedTasks} von ${totalTasks} Aufgaben erledigt`;
-    }
-    const progressFill = document.getElementById("progress-fill");
-    const percentage = totalTasks === 0 ? 0 : (completedTasks / totalTasks) * 100;
-    progressFill.style.width = percentage + "%";
+    const total = tasks.length;
+    const done = tasks.filter(t => t.checked).length;
+    document.getElementById("progress-text").innerText = `${done} / ${total} Tasks completed`;
+    const percent = total === 0 ? 0 : (done / total) * 100;
+    document.getElementById("progress-fill").style.width = percent + "%";
 }
 
-if ("serviceWorker" in navigator) {
-    window.addEventListener("load", () => {
-        navigator.serviceWorker.register("serviceWorker.js")
-            .then(reg => console.log("Service Worker aktiv (manifest)!"))
-            .catch(err => console.log("Service Worker Fehler:", err));
-    });
+function saveData() {
+    localStorage.setItem("tasks", JSON.stringify(tasks));
 }
+
+renderTasks();
