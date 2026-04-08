@@ -101,7 +101,7 @@ sortButton.addEventListener("click", () => {
         }
     });
     sortAscending = !sortAscending;
-    sortButton.innerText = sortAscending ? "Sort: Low to High" : "Sort: High to Low";
+    sortButton.innerText = sortAscending ? "Sort: High to Low" : "Sort: Low to High";
     renderTasks();
 });
 
